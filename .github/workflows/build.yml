@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Date maths unit tests
+        run: |
+          gcc -Wall -Wextra -Werror -o test_mm_date tests/test_mm_date.c mm_date.c
+          ./test_mm_date
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sdk-channel: [release, dev]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with ufbt
+        uses: flipperdevices/flipperzero-ufbt-action@v0.1
+        id: build-app
+        with:
+          sdk-channel: ${{ matrix.sdk-channel }}
+      - name: Upload app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: momento_mori-${{ matrix.sdk-channel }}-${{ steps.build-app.outputs.suffix }}
+          path: ${{ steps.build-app.outputs.fap-artifacts }}

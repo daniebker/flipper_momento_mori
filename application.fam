@@ -1,0 +1,14 @@
+App(
+    appid="momento_mori",
+    name="Memento Mori",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="momento_mori_app",
+    requires=["gui", "storage"],
+    stack_size=2 * 1024,
+    fap_category="Tools",
+    fap_icon="momento_mori.png",
+    fap_version="1.0",
+    fap_description="Your life in 4000 weeks. See how many you have lived and how many remain.",
+    fap_author="daniebker",
+    fap_weburl="https://github.com/daniebker/flipper_momento_mori",
+)

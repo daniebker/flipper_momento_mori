@@ -1,0 +1,4 @@
+dist/
+.vscode/
+.ufbt/
+test_mm_date
